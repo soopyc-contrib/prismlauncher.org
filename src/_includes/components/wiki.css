@@ -53,7 +53,16 @@
   font-weight: bold;
 }
 
-.wiki-toc .section, .toggle>details>summary{
+.wiki-toc .section {
+  border-radius: 1em 0 0 1em;
+}
+
+.wiki-toc .section a {
+  display: block;
+  padding: 0.6em;
+}
+
+.toggle>details>summary{
   padding: 0.6em;
   border-radius: 1em 0 0 1em;
 }
@@ -61,6 +70,7 @@
 
 /* fold dropdown + icon */
 summary {
+  cursor: pointer;
   position: relative;
   align-items: center;
   justify-content: space-between;
@@ -152,5 +162,27 @@ summary {
   .wiki-toc {
     border-radius: 1em 0 0 1em;
     margin-top: 1em;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .wiki-toc>ul>li:nth-child(3n + 1) {
+    --toc-header-rainbow: var(--primary-dark)
+  }
+  .wiki-toc>ul>li:nth-child(3n + 2) {
+    --toc-header-rainbow: var(--danger-dark)
+  }
+  /* hack yellow */
+  .wiki-toc>ul>li:nth-child(3n + 3) {
+    --toc-header-rainbow: hsl(49, 85%, 40%)
+  }
+  .wiki-toc>ul>li:nth-child(3n + 4) {
+    --toc-header-rainbow: var(--success-dark)
+  }
+  .wiki-toc>ul>li:nth-child(3n + 5) {
+    --toc-header-rainbow: var(--link-dark)
+  }
+  .wiki-toc>ul>li:nth-child(3n + 6) {
+    --toc-header-rainbow: var(--info-dark)
   }
 }
