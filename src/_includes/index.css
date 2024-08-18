@@ -277,6 +277,10 @@ code {
   background-color: var(--primary-dark);
 }
 
+.button.type-disabled {
+  background-color: var(--disabled);
+}
+
 .button.type-link {
   background-color: var(--link);
 }

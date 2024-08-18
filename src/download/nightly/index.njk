@@ -10,7 +10,6 @@ stable: true
     if (!url.pathname.endsWith("/")) {
       url.pathname += "/"; // if there isn't a slash, add it
     }
-    url.pathname += "stable/"; // always prepend /stable/
     url.pathname += path;
   }
 
