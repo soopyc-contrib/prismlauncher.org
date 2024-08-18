@@ -9,6 +9,7 @@ const markdownItTableOfContents = require("markdown-it-table-of-contents");
 const cleanCSS = require("clean-css");
 const { EleventyRenderPlugin } = require("@11ty/eleventy");
 const Image = require("@11ty/eleventy-img");
+const pluginWebc = require("@11ty/eleventy-plugin-webc");
 
 async function image(alt, filepath, darkpath, classes, lossless = true, sizes = "100vw") {
   if (alt === undefined) {
@@ -95,6 +96,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginSyntaxHighlight);
   eleventyConfig.addPlugin(pluginNavigation);
   eleventyConfig.addPlugin(EleventyRenderPlugin);
+  eleventyConfig.addPlugin(pluginWebc, {
+		components: [
+			// …
+			// Add as a global WebC component
+			"npm:@11ty/eleventy-img/*.webc",
+		],
+	});
 
   // Add shortcodes
   eleventyConfig.addNunjucksAsyncShortcode("image", image);
