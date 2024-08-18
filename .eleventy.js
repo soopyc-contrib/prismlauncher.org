@@ -138,6 +138,12 @@ module.exports = function (eleventyConfig) {
     return Math.min.apply(null, numbers);
   });
 
+  eleventyConfig.addNunjucksFilter('lastSection', function(url) {
+    if (typeof url !== 'string') return '';
+    const parts = url.split('/').filter(part => part);
+    return parts.length ? parts[parts.length - 1] : '';
+  });
+
   function filterTagList(tags) {
     return (tags || []).filter(
       (tag) => ["all", "nav", "post", "posts", "wiki"].indexOf(tag) === -1

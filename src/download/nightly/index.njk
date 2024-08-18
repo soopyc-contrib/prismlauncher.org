@@ -1,0 +1,39 @@
+---
+eleventyComputed:
+  hero:
+    title: "Downloads"
+    description: "Download Prism Launcher {{version.current}}"
+stable: true
+---
+<script>
+  function appendToURL(url, path) {
+    if (!url.pathname.endsWith("/")) {
+      url.pathname += "/"; // if there isn't a slash, add it
+    }
+    url.pathname += "stable/"; // always prepend /stable/
+    url.pathname += path;
+  }
+
+  let url = new URL(window.location.href);
+
+  // redirect the user to the correct place 
+  if (navigator.platform.indexOf("Win") !== -1) {
+    appendToURL(url, "windows");
+    window.location.href = url.href;
+  } else if (navigator.platform.indexOf("Mac") !== -1) {
+    appendToURL(url, "mac");
+    window.location.href = url.href;
+  } else if (navigator.platform.indexOf("nix") !== -1 || navigator.platform.indexOf("nux") !== -1 || navigator.userAgent.indexOf("X11") !== -1) {
+    appendToURL(url, "linux");
+    window.location.href = url.href;
+  }
+</script>
+<style>
+  .notification {
+    border-radius: 0 0 1em 1em
+  }
+</style>
+
+<div class="notification type-info">
+  <noscript>Looks like Javascript is disabled.</noscript> Your operating system could not be determined, please select the correct system.
+</div>

@@ -3,36 +3,31 @@ layout: layouts/main.njk
 eleventyComputed:
   hero:
     title: "Downloads"
-    description: "Download Prism Launcher {{version.current}}"
 ---
-<script>
-  function appendToURL(url, path) {
-    if (!url.pathname.endsWith("/")) {
-      url.pathname += "/"; // if there isn't a slash, add it
-    }
-    url.pathname += path;
-  }
+{% set currentTag = '' %}
 
-  let url = new URL(window.location.href);
-  if (url.searchParams.get("from") === "button") {
-    url.searchParams.delete("from"); // don't eternally redirect
+<!-- Determine the current tag of the page -->
+{% for post in collections.download %}
+  {% if page.url == post.url %}
+    {% set currentTag = post.data.tags[1] %}
+  {% endif %}
+{% endfor %}
 
-    // redirect the user to the correct place 
-    if (navigator.platform.indexOf("Mac") !== -1) {
-      appendToURL(url, "mac");
-      window.location.href = url.href;
-    } else if (navigator.platform.indexOf("nix") !== -1 || navigator.platform.indexOf("nux") !== -1 || navigator.userAgent.indexOf("X11") !== -1) {
-      appendToURL(url, "linux");
-      window.location.href = url.href;
-    }
-  }
-</script>
-<style>
-  .background {
-    filter: brightness(80%);
-  }
-</style>
+<ul class="version-switcher">
+    <li class="{% if "stable" == currentTag %}version-switcher-active{% endif %}">
+      <a href="{{ '/download/stable' | url }}/{{ page.url | lastSection }}">Stable ({{version.current}})</a>
+    </li>
+    <li class="{% if "nightly" == currentTag %}version-switcher-active{% endif %}">
+      <a href="{{ '/download/nightly' | url }}/{{ page.url | lastSection }}">Nightly</a>
+    </li>
+</ul>
 
-{{ collections.download | eleventyNavigation | eleventyNavigationToHtml({ activeKey: eleventyNavigation.key, listClass: 'download-tab-list', activeListItemClass: 'download-tab-active' }) | safe }}
+{% if "nightly" == currentTag %}
+<div class="notification type-warn top">
+  Nightly versions are unstable and should only be used for testing, expect bugs.
+</div>
+{% endif %}
+
+{{ collections[currentTag] | eleventyNavigation | eleventyNavigationToHtml({ activeKey: eleventyNavigation.key, listClass: 'download-tab-list', activeListItemClass: 'download-tab-active' }) | safe }}
 
 {{ content | safe }}

@@ -59,6 +59,43 @@
     margin-left: 0;
 }
 
+.version-switcher {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+
+.version-switcher a {
+    background-color: var(--accent);
+    padding: 1em;
+    display: block;
+    color: var(--primary-text);
+    text-decoration: none;
+    justify-content: center;
+}
+
+.version-switcher a:hover {
+    background-color: var(--accent-light);
+}
+
+.version-switcher-active a {
+    background-color: var(--info);
+}
+
+.version-switcher li:first-child a {
+    border-radius: 1em 0 0 1em;
+}
+.version-switcher li:last-child a {
+    border-radius: 0 1em 1em 0;
+}
+
+
 @media (min-width: 64em) {
     .download-tab-list a {
         border-radius: 1rem 1rem 0 0;
